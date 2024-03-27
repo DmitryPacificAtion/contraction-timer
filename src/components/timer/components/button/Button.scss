@@ -1,0 +1,48 @@
+button {
+  cursor: pointer;
+  position: relative;
+  text-decoration: inherit;
+  font-family: system-ui;
+  padding: 8px 16px;
+  color: #fff;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 0;
+  z-index: 1;
+  box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.75);
+
+  &:after {
+    content: '';
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    z-index: -1;
+    position: absolute;
+    background: #333;
+    text-decoration: inherit;
+    font-family: system-ui;
+    text-align: center;
+    border-radius: 50%;
+  }
+
+  &:active:after {
+    background: #111;
+  }
+}
+
+.rest button {
+  background: linear-gradient(to left, #00c853, #b2ff59);
+  &:active {
+    background: linear-gradient(to right, #00c853, #b2ff59);
+  }
+}
+
+.contractions button {
+  background: linear-gradient(to left, #a07aff, #d53a9d);
+  &:active {
+    background: linear-gradient(to right, #a07aff, #d53a9d);
+  }
+}
