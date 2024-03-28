@@ -18,15 +18,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-table {
-  width: 100%;
-  border-spacing: 0;
-}
-
-table tr td {
-  padding: 8px 16px;
-}
-table tr:not(:first-child) td {
-  border-top: 1px solid #111;
-}

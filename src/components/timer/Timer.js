@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import './Timer.scss';
+import { Screen } from './Timer.styled';
 import { Button, Title, Clock } from './components';
+import { TYPE_ENUMS } from '../../constants';
+import { useTimerDispatch, timerActions } from '../timer-provider';
 
 const ONE_SECOND = 1000;
 const DEFAULT_TIME = 0;
@@ -15,9 +17,22 @@ const msFormatter = (time) => {
 function Timer() {
   const [hasContractionsBegin, setHasContractionsBegin] = useState(false);
   const [timer, setTimer] = useState(DEFAULT_TIME);
+  const dispatch = useTimerDispatch();
 
-  const handleClick = () =>
+  const handleClick = () => {
     setHasContractionsBegin((hasContractionsBegin) => !hasContractionsBegin);
+    const type = hasContractionsBegin
+      ? TYPE_ENUMS.CONTRACTIONS
+      : TYPE_ENUMS.REST;
+
+    dispatch({
+      type: timerActions.SET,
+      payload: { type },
+    });
+
+    // TimerContext.Consumer =
+    //   timerType === TYPE_ENUMS.REST ? TYPE_ENUMS.CONTRACTIONS : TYPE_ENUMS.REST;
+  };
 
   useEffect(() => {
     let id = null;
@@ -33,13 +48,13 @@ function Timer() {
   }, [hasContractionsBegin]);
 
   return (
-    <section className={hasContractionsBegin ? 'contractions' : 'rest'}>
+    <Screen className={hasContractionsBegin ? 'contractions' : 'rest'}>
       <Clock>{msFormatter(timer)}</Clock>
       <Title>{hasContractionsBegin ? 'Перейми' : 'Відпочинок'}</Title>
       <Button handleClick={handleClick}>
         {hasContractionsBegin ? 'Стоп' : 'Старт'}
       </Button>
-    </section>
+    </Screen>
   );
 }
 

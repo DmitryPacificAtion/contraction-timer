@@ -1,17 +1,17 @@
-import './Table.scss';
+import { TableWrapper, Table as TableStyled, Row, Cell } from './Table.styled';
 
 function Table({ list }) {
   return (
-    <div className='table-wrapper'>
-      <table className='table-screen'>
+    <TableWrapper>
+      <TableStyled>
         {list.map(({ id, type, name, time }) => (
-          <tr key={id}>
-            <td class={type}>{name}</td>
-            <td class={type}>{time}</td>
-          </tr>
+          <Row key={id}>
+            <Cell type={type}>{name}</Cell>
+            <Cell type={type}>{time}</Cell>
+          </Row>
         ))}
-      </table>
-    </div>
+      </TableStyled>
+    </TableWrapper>
   );
 }
 

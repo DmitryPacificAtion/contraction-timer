@@ -1,4 +1,8 @@
-button {
+import styled from 'styled-components';
+import { getColor } from '../../../../utils';
+
+export const Button = styled.button(
+  ({ type }) => `
   cursor: pointer;
   position: relative;
   text-decoration: inherit;
@@ -31,18 +35,11 @@ button {
   &:active:after {
     background: #111;
   }
-}
 
-.rest button {
-  background: linear-gradient(to left, #00c853, #b2ff59);
-  &:active {
-    background: linear-gradient(to right, #00c853, #b2ff59);
-  }
-}
+  background-image: ${getColor(type)};
 
-.contractions button {
-  background: linear-gradient(to left, #a07aff, #d53a9d);
   &:active {
-    background: linear-gradient(to right, #a07aff, #d53a9d);
+    background: ${getColor(type)};
   }
-}
+`
+);
