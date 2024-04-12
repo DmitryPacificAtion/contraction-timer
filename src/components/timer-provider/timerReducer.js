@@ -14,7 +14,6 @@ export function timerReducer(state, { type, payload }) {
     case timerActions.SET: {
       const { time, type: rowType } = payload;
       const id = state.list.length + 1;
-      console.log('rowType', rowType);
       return {
         type: payload.type,
         list: [
