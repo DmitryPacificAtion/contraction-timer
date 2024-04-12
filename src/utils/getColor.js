@@ -7,5 +7,8 @@ export const getColor = ({ type }) => {
   if (type === TYPE_ENUMS.CONTRACTIONS) {
     return 'linear-gradient(to left, #a07aff, #d53a9d)';
   }
-  return 'linear-gradient(to left, #eee, #ccc)';
+  if (type === TYPE_ENUMS.DEFAULT) {
+    return 'linear-gradient(to left, #eee, #ccc)';
+  }
+  console.error('getColor error! This case should happend');
 };

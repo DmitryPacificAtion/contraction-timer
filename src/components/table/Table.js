@@ -1,15 +1,22 @@
 import { TableWrapper, Table as TableStyled, Row, Cell } from './Table.styled';
+import { useTimer } from '../timer-provider';
+import { TYPE_ENUMS } from '../../constants';
 
-function Table({ list }) {
+function Table() {
+  const { list } = useTimer();
   return (
     <TableWrapper>
       <TableStyled>
-        {list.map(({ id, type, name, time }) => (
-          <Row key={id}>
-            <Cell type={type}>{name}</Cell>
-            <Cell type={type}>{time}</Cell>
-          </Row>
-        ))}
+        <tbody>
+          {list.map(({ id, type, time }) => (
+            <Row key={id}>
+              <Cell type={type}>
+                {type === TYPE_ENUMS.REST ? 'Відпочинок' : 'Потуги'}
+              </Cell>
+              <Cell type={type}>{time}</Cell>
+            </Row>
+          ))}
+        </tbody>
       </TableStyled>
     </TableWrapper>
   );

@@ -8,13 +8,23 @@ export const initialState = {
 
 export function timerReducer(state, { type, payload }) {
   switch (type) {
-    case timerActions.PUSH: {
+    case timerActions.RESET: {
       return initialState;
     }
     case timerActions.SET: {
+      const { time, type: rowType } = payload;
+      const id = state.list.length + 1;
+      console.log('rowType', rowType);
       return {
-        ...state,
         type: payload.type,
+        list: [
+          ...state.list,
+          {
+            id,
+            time,
+            type: rowType,
+          },
+        ],
       };
     }
     default: {

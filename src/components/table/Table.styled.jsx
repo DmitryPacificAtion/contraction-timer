@@ -11,7 +11,7 @@ const Table = styled.table`
 `;
 
 const Row = styled.tr`
-  &:not(:first-child) td {
+  & td {
     border-top: 1px solid #111;
   }
 `;

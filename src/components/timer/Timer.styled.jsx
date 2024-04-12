@@ -6,6 +6,7 @@ const Screen = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 
 export { Screen };
