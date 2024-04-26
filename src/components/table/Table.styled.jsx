@@ -62,6 +62,7 @@ const Table = styled.table`
 
 const Row = styled.tr`
   height: 50px;
+  vertical-align: middle;
   & td {
     border-top: 1px solid #111;
   }
