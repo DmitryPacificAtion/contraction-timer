@@ -2,11 +2,12 @@ import styled from 'styled-components';
 
 const Screen = styled.section`
   display: flex;
-  height: 400px;
+  height: 100%;
+  min-height: 250px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
+  background: #2e2e2e;
 `;
 
 export { Screen };
