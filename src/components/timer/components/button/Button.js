@@ -1,7 +1,11 @@
-import './Button.scss';
+import { Button as ButtonStyled } from './Button.styled';
+import { useTimer } from '../../../timer-provider';
 
-function Button({ children, handleClick }) {
-  return <button onClick={handleClick}>{children}</button>;
+export function Button({ children, handleClick }) {
+  const timer = useTimer();
+  return (
+    <ButtonStyled onClick={handleClick} type={timer}>
+      {children}
+    </ButtonStyled>
+  );
 }
-
-export { Button };

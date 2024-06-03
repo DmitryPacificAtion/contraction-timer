@@ -1,4 +1,8 @@
-.clock {
+import styled from 'styled-components';
+import { getColor } from '../../../../utils';
+
+export const Clock = styled.div(
+  ({ type }) => `
   font-size: 32px;
   text-transform: uppercase;
   background-clip: text;
@@ -6,12 +10,6 @@
   color: transparent;
   background-size: cover;
   background-position: left;
-}
-
-.rest .clock {
-  background-image: linear-gradient(to left, #00c853, #b2ff59);
-}
-
-.contractions .clock {
-  background-image: linear-gradient(to left, #a07aff, #d53a9d);
-}
+  background-image: ${getColor(type)};
+`
+);

@@ -1,7 +1,5 @@
-import './Title.scss';
+import { Title as TitleStyled } from './Title.styled.jsx';
 
-function Title({ children }) {
-  return <div className='title'>{children}</div>;
+export function Title({ children }) {
+  return <TitleStyled>{children}</TitleStyled>;
 }
-
-export { Title };

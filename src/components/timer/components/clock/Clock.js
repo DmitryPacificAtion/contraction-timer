@@ -1,7 +1,8 @@
-import './Clock.scss';
+import { useTimer } from '../../../timer-provider';
+import { Clock as ClockStyled } from './Clock.styled.jsx';
 
-function Clock({ children }) {
-  return <div className='clock'>{children}</div>;
+export function Clock({ children }) {
+  const timer = useTimer();
+
+  return <ClockStyled type={timer}>{children}</ClockStyled>;
 }
-
-export { Clock };
