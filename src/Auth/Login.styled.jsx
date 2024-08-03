@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { VALIDATIONS, getValidationColor } from './constants';
 
 export const Container = styled.div`
-  margin: 0 auto;
+  margin: 150px auto 0;
   max-width: 375px;
   display: flex;
   justify-content: center;
@@ -20,22 +20,23 @@ export const Title = styled.h1`
 `;
 
 export const Suggestions = styled.div`
-  font: 400 13px/24px 'Inter', sans-serif;
+  font: 400 13px/28px 'Inter', sans-serif;
   text-align: left;
   padding-bottom: 30px;
 `;
 export const Text = styled.p`
-  color: ${getValidationColor};
+  font-size: 14px;
+  color: ${({ validation }) => getValidationColor(validation)};
 `;
 
 export const Input = styled.input.attrs(
-  ({ validation = VALIDATIONS.INSERT }) => ({
+  ({ validation = VALIDATIONS.DEFAULT }) => ({
     validation,
   })
 )`
   border: 2px solid;
   width: calc(100% - 24px);
-  border-color: ${getValidationColor};
+  border-color: ${({ validation }) => getValidationColor(validation)};
   border-radius: 10px;
   padding: 10px 15px;
   margin-bottom: 20px;
@@ -46,7 +47,7 @@ export const Label = styled.label`
   position: relative;
 `;
 
-export const I = styled.i`
+export const Eye = styled.i`
   position: absolute;
   top: 0;
   right: 10px;
@@ -70,7 +71,8 @@ export const Button = styled.button`
   font: 700 18px/14px 'Inter', sans-serif;
   height: 48px;
   color: #fff;
-  background-image: linear-gradient(to right, #70c3ff, #4b65ff);
+  cursor: pointer;
+  background-image: linear-gradient(to right, #a07aff, #d53a9d);
 `;
 
 // Input's attrs will be appl

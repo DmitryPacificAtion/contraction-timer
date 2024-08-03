@@ -1,5 +1,5 @@
 export const VALIDATIONS = {
-  INSERT: 'insert',
+  DEFAULT: 'default',
   CORRECT: 'correct',
   ERROR: 'error',
 };
