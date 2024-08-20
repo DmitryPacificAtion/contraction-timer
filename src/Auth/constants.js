@@ -1,15 +1,15 @@
 export const VALIDATIONS = {
   DEFAULT: 'default',
-  CORRECT: 'correct',
+  VALID: 'valid',
   ERROR: 'error',
 };
 
-export const getValidationColor = (validation) => {
-  if (validation === VALIDATIONS.CORRECT) {
-    return '#27B274';
+export const getValidationColor = (validation, lighter = false) => {
+  if (validation === VALIDATIONS.VALID) {
+    return lighter ? 'rgb(199 241 215)' : '#27B274';
   }
   if (validation === VALIDATIONS.ERROR) {
-    return '#FF8080';
+    return lighter ? 'rgb(252 221 221)' : '#FF8080';
   }
-  return '#bfebf1';
+  return lighter ? 'rgb(233 253 253)' : '#bfebf1';
 };

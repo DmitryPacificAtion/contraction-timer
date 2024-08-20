@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { VALIDATIONS, getValidationColor } from './constants';
 
 export const Container = styled.div`
-  margin: 150px auto 0;
+  margin: 25px auto 0;
   max-width: 375px;
   display: flex;
   justify-content: center;
@@ -37,6 +37,7 @@ export const Input = styled.input.attrs(
   border: 2px solid;
   width: calc(100% - 24px);
   border-color: ${({ validation }) => getValidationColor(validation)};
+  background-color: ${({ validation }) => getValidationColor(validation, true)};
   border-radius: 10px;
   padding: 10px 15px;
   margin-bottom: 20px;
@@ -55,7 +56,7 @@ export const Eye = styled.i`
   cursor: pointer;
 `;
 
-export const Box = styled.div`
+export const Form = styled.form`
   display: flex;
   justify-content: center;
   flex-direction: column;

@@ -1,23 +1,26 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useReducer, useState } from 'react';
 import {
   Container,
   Button,
   Title,
   Input,
-  Box,
+  Form,
   Label,
   Eye,
   Suggestions,
   Text,
 } from './Login.styled';
 import { VALIDATIONS } from './constants';
+import { authReducer } from '.';
 
 const FIELD_TYPES = {
   EMAIL: 'email',
   PASSWORD: 'password',
 };
 export function Login() {
+  const [state, dispatch] = useReducer(authReducer);
   const [isPwdVisible, setIsPwdVisible] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(null);
   const [validation, setValid] = useState({
     eightNoSpace: VALIDATIONS.DEFAULT,
     upperLowerLetters: VALIDATIONS.DEFAULT,
@@ -31,7 +34,11 @@ export function Login() {
   );
   const handleChangeField = ({ target }) => {
     if (target.name === FIELD_TYPES.EMAIL) {
-      const res = /[a-zA-Z_.-]+@[a-zA-Z_]+?\.[a-zA-Z_]{2,}/g.test(target.value);
+      const email = /[a-zA-Z_.-]+@[a-zA-Z_]+?\.[a-zA-Z_]{2,}/g.test(
+        target.value
+      );
+
+      setIsEmailValid(email);
     }
     if (target.name === FIELD_TYPES.PASSWORD) {
       // const pwd =
@@ -45,24 +52,67 @@ export function Login() {
 
       // Check: https://www.figma.com/design/sD1rsXjJkMWMh32I63l1d7/Clario-Test-Task
       setValid({
-        eightNoSpace: eightNoSpace ? VALIDATIONS.CORRECT : VALIDATIONS.DEFAULT,
+        eightNoSpace: eightNoSpace ? VALIDATIONS.VALID : VALIDATIONS.DEFAULT,
         upperLowerLetters: upperLowerLetters
-          ? VALIDATIONS.CORRECT
+          ? VALIDATIONS.VALID
           : VALIDATIONS.DEFAULT,
-        oneDigit: oneDigit ? VALIDATIONS.CORRECT : VALIDATIONS.DEFAULT,
+        oneDigit: oneDigit ? VALIDATIONS.VALID : VALIDATIONS.DEFAULT,
         specialSymbols: specialSymbols
-          ? VALIDATIONS.CORRECT
+          ? VALIDATIONS.VALID
           : VALIDATIONS.DEFAULT,
       });
     }
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    const pwdValue = formData.get('password');
+    const emailValue = formData.get('email');
+    const email = /[a-zA-Z_.-]+@[a-zA-Z_]+?\.[a-zA-Z_]{2,}/g.test(emailValue);
+
+    const eightNoSpace = /^\S{8,}$/.test(pwdValue);
+    const upperLowerLetters = /^(?=.*[A-Z])(?=.*[a-z]).+$/.test(pwdValue);
+    const oneDigit = /^(?=.*\d).+$/.test(pwdValue);
+    const specialSymbols = /^(?=.*[@$!%*?&]).+$/.test(pwdValue);
+
+    const password =
+      eightNoSpace &&
+      eightNoSpace &&
+      upperLowerLetters &&
+      oneDigit &&
+      specialSymbols;
+
+    if (email && password) {
+      localStorage.setItem('auth', window.btoa(`${emailValue}|${pwdValue}`));
+      dispatch({ type: 'SET', payload: true });
+    } else {
+      setValid({
+        eightNoSpace: eightNoSpace ? VALIDATIONS.VALID : VALIDATIONS.ERROR,
+        upperLowerLetters: upperLowerLetters
+          ? VALIDATIONS.VALID
+          : VALIDATIONS.ERROR,
+        oneDigit: oneDigit ? VALIDATIONS.VALID : VALIDATIONS.ERROR,
+        specialSymbols: specialSymbols ? VALIDATIONS.VALID : VALIDATIONS.ERROR,
+      });
+    }
+  };
+
   return (
     <Container>
-      <Box>
+      <Form onSubmit={handleSubmit}>
         <Title>Sign up</Title>
         <Input
           placeholder='Enter your email'
           name={FIELD_TYPES.EMAIL}
+          validation={
+            isEmailValid === null
+              ? VALIDATIONS.DEFAULT
+              : isEmailValid
+              ? VALIDATIONS.VALID
+              : VALIDATIONS.ERROR
+          }
           type='email'
           onBlur={handleChangeField}
         />
@@ -70,7 +120,10 @@ export function Login() {
           <Input
             placeholder='Create your password'
             type={isPwdVisible ? 'text' : 'password'}
-            validation={VALIDATIONS.DEFAULT}
+            validation={
+              Object.values(validation).every((i) => i === VALIDATIONS.VALID) &&
+              VALIDATIONS.VALID
+            }
             onChange={handleChangeField}
             maxLength={64}
             minLength={8}
@@ -125,7 +178,7 @@ export function Login() {
           </Text>
         </Suggestions>
         <Button type='submit'>Sign up</Button>
-      </Box>
+      </Form>
     </Container>
   );
 }
