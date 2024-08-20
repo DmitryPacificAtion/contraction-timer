@@ -3,7 +3,7 @@
   padding: 0;
   border: none;
   font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', Helvetica, sans-serif;
 }
 body {
   margin: 0;
@@ -16,7 +16,7 @@ body {
 }
 
 button:focus {
-  outline: 2px solid rgb(220, 90, 90);
+  outline: 2px solid #2d2edc;
 }
 
 code {

@@ -8,10 +8,10 @@ const TableWrapper = styled.section`
   border-spacing: 0;
   position: absolute;
   z-index: 1010;
-  top: 90%;
+  top: 100%;
   transition: top 0.8s ease-in-out;
   &.show-table {
-    top: 10%;
+    top: 20%;
   }
 `;
 const ShowButton = styled.button`
@@ -21,10 +21,11 @@ const ShowButton = styled.button`
   box-shadow: 0px 0px 60px 0px rgba(255, 255, 255, 1);
   cursor: pointer;
   background: #2e2e2e;
-  position: relative;
+  position: absolute;
   z-index: 1020;
   margin-bottom: 10px;
   left: calc(50% - 90px);
+  top: -10%;
   &::before,
   &::after {
     position: absolute;

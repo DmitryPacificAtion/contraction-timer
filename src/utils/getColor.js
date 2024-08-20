@@ -10,5 +10,5 @@ export const getColor = ({ type }) => {
   if (type === TYPE_ENUMS.DEFAULT) {
     return 'linear-gradient(to left, #eee, #ccc)';
   }
-  console.error('getColor error! This case should happend');
+  throw Error('getColor error! This case should happend');
 };

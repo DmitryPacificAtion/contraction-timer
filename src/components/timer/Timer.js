@@ -3,16 +3,10 @@ import { Screen } from './Timer.styled';
 import { Button, Title, Clock, ShutDown } from './components';
 import { TYPE_ENUMS } from '../../constants';
 import { useTimerDispatch, timerActions } from '../timer-provider';
+import { msFormatter } from '../../utils';
 
 const ONE_SECOND = 1000;
 const DEFAULT_TIME = 0;
-
-const msFormatter = (time) => {
-  const seconds = Math.floor(time % 60);
-  return `${Math.floor((time % 3600) / 60)}:${
-    seconds < 10 ? '0' + seconds : seconds
-  }`;
-};
 
 function Timer() {
   const [hasContractionsBegin, setHasContractionsBegin] = useState(
@@ -22,19 +16,19 @@ function Timer() {
   const dispatch = useTimerDispatch();
 
   const handleClick = () => {
-    let type = hasContractionsBegin;
-    if (hasContractionsBegin !== TYPE_ENUMS.REST) {
-      type = TYPE_ENUMS.REST;
+    if (hasContractionsBegin === TYPE_ENUMS.CONTRACTIONS) {
+      dispatch({
+        type: timerActions.SET_REST,
+        payload: { time: timer },
+      });
+      setHasContractionsBegin(TYPE_ENUMS.REST);
+    } else {
+      setHasContractionsBegin(TYPE_ENUMS.CONTRACTIONS);
+      dispatch({
+        type: timerActions.SET_CONTRACTION,
+        payload: { time: timer },
+      });
     }
-    if (hasContractionsBegin !== TYPE_ENUMS.CONTRACTIONS) {
-      type = TYPE_ENUMS.CONTRACTIONS;
-    }
-
-    setHasContractionsBegin(type);
-    dispatch({
-      type: timerActions.SET,
-      payload: { type, time: msFormatter(timer) },
-    });
   };
 
   const handleShutDown = () => {
@@ -50,7 +44,7 @@ function Timer() {
     if (hasContractionsBegin !== TYPE_ENUMS.DEFAULT) {
       setTimer(DEFAULT_TIME);
       id = setInterval(() => {
-        setTimer((timer) => timer + 1);
+        setTimer((timer) => timer + ONE_SECOND);
       }, ONE_SECOND);
     }
     return () => {
