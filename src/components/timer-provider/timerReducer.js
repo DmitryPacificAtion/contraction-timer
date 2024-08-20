@@ -11,19 +11,41 @@ export function timerReducer(state, { type, payload }) {
     case timerActions.RESET: {
       return initialState;
     }
-    case timerActions.SET: {
-      const { time, type: rowType } = payload;
+    case timerActions.SET_REST: {
+      const { time } = payload;
       const id = state.list.length + 1;
       return {
-        type: payload.type,
-        list: [
-          ...state.list,
-          {
-            id,
-            time,
-            type: rowType,
-          },
-        ],
+        type: TYPE_ENUMS.REST,
+        list:
+          time > 0
+            ? [
+                ...state.list,
+                {
+                  id,
+                  time,
+                  type: TYPE_ENUMS.CONTRACTIONS,
+                },
+              ]
+            : state.list,
+      };
+    }
+    case timerActions.SET_CONTRACTION: {
+      const { time } = payload;
+      const id = state.list.length + 1;
+
+      return {
+        type: TYPE_ENUMS.CONTRACTIONS,
+        list:
+          time > 0
+            ? [
+                ...state.list,
+                {
+                  id,
+                  time,
+                  type: TYPE_ENUMS.REST,
+                },
+              ]
+            : state.list,
       };
     }
     default: {

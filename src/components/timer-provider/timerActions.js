@@ -1,4 +1,5 @@
 export const timerActions = {
-  SET: 'SET',
+  SET_CONTRACTION: 'SET_CONTRACTION',
+  SET_REST: 'SET_REST',
   RESET: 'RESET',
 };
